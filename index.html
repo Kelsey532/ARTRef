@@ -36,32 +36,32 @@
                 </div>
             </a>
 
-            <!-- Page Navigation Tabs -->
+            <!-- Page Navigation Tabs (Bottom panel on mobile, top bar on desktop) -->
             <nav class="nav-menu">
                 <a href="#home" class="nav-route active" data-target="home">
-                    <i class="fa-solid fa-house"></i> Home
+                    <i class="fa-solid fa-house"></i> <span>Home</span>
                 </a>
                 <a href="#library" class="nav-route" data-target="library">
-                    <i class="fa-solid fa-shapes"></i> Library
+                    <i class="fa-solid fa-shapes"></i> <span>Library</span>
                 </a>
                 <a href="#studio" class="nav-route" data-target="studio">
-                    <i class="fa-solid fa-flask"></i> Study Studio
+                    <i class="fa-solid fa-flask"></i> <span>Study Studio</span>
                 </a>
                 <a href="#gesture" class="nav-route" data-target="gesture">
-                    <i class="fa-solid fa-stopwatch"></i> Gesture Room
+                    <i class="fa-solid fa-stopwatch"></i> <span>Gesture Room</span>
                 </a>
                 <a href="#saved" class="nav-route" data-target="saved">
-                    <i class="fa-solid fa-bookmark"></i> Saved 
+                    <i class="fa-solid fa-bookmark"></i> <span>Saved</span>
                     <span class="badge" id="navSavedBadge">0</span>
                 </a>
                 <a href="#tools" class="nav-route" data-target="tools">
-                    <i class="fa-solid fa-palette"></i> Color Tools
+                    <i class="fa-solid fa-palette"></i> <span>Color Tools</span>
                 </a>
             </nav>
 
             <div class="nav-actions">
-                <button class="btn-neon nav-route" data-target="gesture">
-                    <i class="fa-solid fa-bolt"></i> Timed Sketch
+                <button class="btn-neon nav-route" data-target="gesture" id="quickSketchBtn">
+                    <i class="fa-solid fa-bolt"></i> <span class="hide-mobile">Timed Sketch</span>
                 </button>
                 <button id="themeToggleBtn" class="icon-btn" title="Toggle Light/Dark Theme">
                     <i class="fa-solid fa-moon"></i>
@@ -86,8 +86,8 @@
                 <!-- Hero Search -->
                 <div class="hero-search-box">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    <input type="text" id="homeSearchInput" placeholder="Search references by title, pose, lighting, angle...">
-                    <button id="homeSearchBtn" class="btn-primary">Search Library</button>
+                    <input type="text" id="homeSearchInput" placeholder="Search references...">
+                    <button id="homeSearchBtn" class="btn-primary">Search</button>
                 </div>
 
                 <!-- Quick Category Cards -->
@@ -188,7 +188,7 @@
                 </div>
             </div>
 
-            <!-- Library Masonry Grid -->
+            <!-- Library Grid -->
             <div class="masonry-container" id="libraryMasonryGrid">
                 <!-- Dynamically populated -->
             </div>
@@ -268,7 +268,7 @@
                         <input type="range" id="studioBlurRange" min="0" max="20" value="0" class="range-slider">
                     </div>
 
-                    <button id="studioResetBtn" class="btn-ghost btn-block" style="margin-top: 1rem;">
+                    <button id="studioResetBtn" class="btn-ghost btn-block" style="margin-top: 1rem; width: 100%;">
                         <i class="fa-solid fa-rotate-left"></i> Reset All Tools
                     </button>
                 </div>
@@ -283,8 +283,8 @@
                     <!-- Color Palette Extractor Drawer Panel -->
                     <div class="palette-extractor-panel">
                         <div class="palette-header">
-                            <h4><i class="fa-solid fa-palette" style="color: var(--accent-emerald);"></i> Extracted Reference Color Swatches</h4>
-                            <button id="extractPaletteBtn" class="btn-accent-sm"><i class="fa-solid fa-wand-magic-sparkles"></i> Re-Extract Swatches</button>
+                            <h4><i class="fa-solid fa-palette" style="color: var(--accent-emerald);"></i> Extracted Color Swatches</h4>
+                            <button id="extractPaletteBtn" class="btn-accent-sm"><i class="fa-solid fa-wand-magic-sparkles"></i> Re-Extract</button>
                         </div>
                         <div class="swatches-row" id="swatchesRow">
                             <!-- Dynamically generated hex color pills -->
@@ -313,16 +313,16 @@
                     <div class="form-group" style="margin-top: 1.5rem;">
                         <label>Interval Duration Per Reference:</label>
                         <div class="time-pills-grid" id="gestureTimePills">
-                            <button class="time-pill" data-time="30">30 Seconds</button>
-                            <button class="time-pill active" data-time="60">1 Minute</button>
-                            <button class="time-pill" data-time="120">2 Minutes</button>
-                            <button class="time-pill" data-time="300">5 Minutes</button>
+                            <button class="time-pill" data-time="30">30s</button>
+                            <button class="time-pill active" data-time="60">1 Min</button>
+                            <button class="time-pill" data-time="120">2 Min</button>
+                            <button class="time-pill" data-time="300">5 Min</button>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="gestureCatSelect">Reference Category:</label>
-                        <select id="gestureCatSelect" class="form-control">
+                        <select id="gestureCatSelect" class="form-control" style="width: 100%;">
                             <option value="all">All Categories (Random Mixture)</option>
                             <option value="anatomy">Anatomy & Poses Only</option>
                             <option value="expressions">Facial Expressions Only</option>
@@ -331,8 +331,8 @@
                         </select>
                     </div>
 
-                    <button id="startGestureSessionBtn" class="btn-primary btn-block btn-lg" style="margin-top: 1.5rem;">
-                        <i class="fa-solid fa-play"></i> Launch Gesture Practice
+                    <button id="startGestureSessionBtn" class="btn-primary btn-block btn-lg" style="margin-top: 1.5rem; width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-play"></i> Launch Session
                     </button>
                 </div>
 
@@ -340,7 +340,7 @@
                 <div class="gesture-active-stage" id="gestureActiveStage" style="display: none;">
                     <div class="gesture-hud">
                         <div class="hud-info">
-                            <span class="hud-tag"><i class="fa-solid fa-fire"></i> Gesture Mode Active</span>
+                            <span class="hud-tag"><i class="fa-solid fa-fire"></i> Active</span>
                             <span id="gestureCountDisplay">Image 1 / 10</span>
                         </div>
 
@@ -380,8 +380,8 @@
             </div>
 
             <div class="saved-actions-bar">
-                <span class="saved-count-tag"><i class="fa-solid fa-bookmark"></i> Total Saved: <strong id="savedPageCount">0</strong></span>
-                <button id="launchSavedGestureBtn" class="btn-primary"><i class="fa-solid fa-play"></i> Practice Gesture With Saved Set</button>
+                <span class="saved-count-tag"><i class="fa-solid fa-bookmark"></i> Saved: <strong id="savedPageCount">0</strong></span>
+                <button id="launchSavedGestureBtn" class="btn-primary"><i class="fa-solid fa-play"></i> Practice Set</button>
             </div>
 
             <div class="masonry-container" id="savedMasonryGrid">
