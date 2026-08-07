@@ -36,26 +36,26 @@
                 </div>
             </a>
 
-            <!-- Page Navigation Tabs (Bottom panel on mobile, top bar on desktop) -->
+            <!-- Page Navigation Tabs (Top horizontal scrollable bar on mobile) -->
             <nav class="nav-menu">
-                <a href="#home" class="nav-route active" data-target="home">
+                <a href="#home" class="nav-link nav-route active" data-target="home">
                     <i class="fa-solid fa-house"></i> <span>Home</span>
                 </a>
-                <a href="#library" class="nav-route" data-target="library">
+                <a href="#library" class="nav-link nav-route" data-target="library">
                     <i class="fa-solid fa-shapes"></i> <span>Library</span>
                 </a>
-                <a href="#studio" class="nav-route" data-target="studio">
-                    <i class="fa-solid fa-flask"></i> <span>Study Studio</span>
+                <a href="#studio" class="nav-link nav-route" data-target="studio">
+                    <i class="fa-solid fa-flask"></i> <span>Study</span>
                 </a>
-                <a href="#gesture" class="nav-route" data-target="gesture">
-                    <i class="fa-solid fa-stopwatch"></i> <span>Gesture Room</span>
+                <a href="#gesture" class="nav-link nav-route" data-target="gesture">
+                    <i class="fa-solid fa-stopwatch"></i> <span>Gesture</span>
                 </a>
-                <a href="#saved" class="nav-route" data-target="saved">
+                <a href="#saved" class="nav-link nav-route" data-target="saved">
                     <i class="fa-solid fa-bookmark"></i> <span>Saved</span>
                     <span class="badge" id="navSavedBadge">0</span>
                 </a>
-                <a href="#tools" class="nav-route" data-target="tools">
-                    <i class="fa-solid fa-palette"></i> <span>Color Tools</span>
+                <a href="#tools" class="nav-link nav-route" data-target="tools">
+                    <i class="fa-solid fa-palette"></i> <span>Tools</span>
                 </a>
             </nav>
 
@@ -212,7 +212,7 @@
                     
                     <div class="control-block">
                         <label>Select Reference:</label>
-                        <select id="studioArtSelect" class="form-control">
+                        <select id="studioArtSelect" class="form-control" style="width:100%;">
                             <!-- Populated by JS -->
                         </select>
                     </div>
@@ -236,7 +236,7 @@
                     </div>
                     <div class="control-block" id="gridSizeBlock" style="margin-top: 0.5rem; display: none;">
                         <label>Grid Subdivisions:</label>
-                        <select id="studioGridSize" class="form-control">
+                        <select id="studioGridSize" class="form-control" style="width:100%;">
                             <option value="3">3 x 3 Grid</option>
                             <option value="4" selected>4 x 4 Grid</option>
                             <option value="6">6 x 6 Grid</option>
@@ -276,8 +276,11 @@
                 <!-- Main Interactive Stage -->
                 <div class="studio-main-stage">
                     <div class="stage-frame" id="studioStageFrame">
-                        <img src="" id="studioImg" alt="Studio Reference Workspace">
-                        <svg class="grid-overlay-svg" id="studioGridSvg" style="display: none;"></svg>
+                        <!-- stage-inner ensures the grid fits perfectly on the reference image -->
+                        <div class="stage-inner">
+                            <img src="" id="studioImg" alt="Studio Reference Workspace">
+                            <svg class="grid-overlay-svg" id="studioGridSvg" style="display: none;"></svg>
+                        </div>
                     </div>
 
                     <!-- Color Palette Extractor Drawer Panel -->
@@ -413,7 +416,7 @@
                     
                     <div class="light-stage">
                         <div class="light-source" id="lightSourceNode"></div>
-                        <div class="3d-sphere-preview" id="shadedSphere">
+                        <div class="sphere-3d-preview" id="shadedSphere">
                             <div class="specular-spot"></div>
                         </div>
                     </div>
