@@ -1,0 +1,511 @@
+ <!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta name="google-site-verification" content="gN85aqsIoxTfmNrlfROdr1omO2isq_4ivibKi8cMIB4" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtRef Studio — Multi-Page Artist Reference & Study Workbench</title>
+    <meta name="description" content="A multi-page drawing reference studio for artists featuring pose libraries, color palette extraction, value study tools, proportion grids, and timed gesture sketching.">
+    <meta name="keywords" content="art reference, pose library, drawing studio, color palette extraction, gesture sketching">
+ <!-- Primary Meta Tags -->
+<title>ArtRefStudio - Free Reference Library & Gesture Drawing Tools for Artists</title>
+<meta name="title" content="ArtRefStudio - Free Reference Library & Gesture Drawing Tools for Artists">
+<meta name="description" content="Explore curated drawing reference photography with built-in color palette extraction, proportion grids, light direction visualizers, and timed gesture drawing modes.">
+<meta name="keywords" content="art reference photos, gesture drawing tool, anatomy poses, color palette extractor, drawing study studio, artist workbench">
+
+<!-- Open Graph / Facebook / Discord -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://artrefstudio.foxmc.cc/">
+<meta property="og:title" content="ArtRefStudio - Pro Artist Workbench & Reference Library">
+<meta property="og:description" content="Free reference photography, proportion grids, color swatches, and timed gesture drawing sessions for artists.">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="http://artrefstudio.foxmc.cc/">
+<meta property="twitter:title" content="ArtRefStudio - Pro Artist Workbench">
+<meta property="twitter:description" content="Free reference photography, color swatches, and timed gesture drawing sessions.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Animated Ambient Glowing Orbs Background -->
+    <div class="ambient-mesh">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo nav-route" data-target="home">
+                <div class="logo-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                <div class="logo-text">
+                    <span class="brand-name">ArtRef<span class="brand-accent">Studio</span></span>
+                    <span class="brand-sub">PRO ARTIST WORKBENCH</span>
+                </div>
+            </a>
+
+            <!-- Page Navigation Tabs (Top horizontal scrollable bar on mobile) -->
+            <nav class="nav-menu">
+                <a href="#home" class="nav-link nav-route active" data-target="home">
+                    <i class="fa-solid fa-house"></i> <span>Home</span>
+                </a>
+                <a href="#library" class="nav-link nav-route" data-target="library">
+                    <i class="fa-solid fa-shapes"></i> <span>Library</span>
+                </a>
+                <a href="#studio" class="nav-link nav-route" data-target="studio">
+                    <i class="fa-solid fa-flask"></i> <span>Study</span>
+                </a>
+                <a href="#gesture" class="nav-link nav-route" data-target="gesture">
+                    <i class="fa-solid fa-stopwatch"></i> <span>Gesture</span>
+                </a>
+                <a href="#saved" class="nav-link nav-route" data-target="saved">
+                    <i class="fa-solid fa-bookmark"></i> <span>Saved</span>
+                    <span class="badge" id="navSavedBadge">0</span>
+                </a>
+                <a href="#tools" class="nav-link nav-route" data-target="tools">
+                    <i class="fa-solid fa-palette"></i> <span>Tools</span>
+                </a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="btn-neon nav-route" data-target="gesture" id="quickSketchBtn">
+                    <i class="fa-solid fa-bolt"></i> <span class="hide-mobile">Timed Sketch</span>
+                </button>
+                <button id="themeToggleBtn" class="icon-btn" title="Toggle Light/Dark Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="page-container">
+
+        <!-- ===================================================================
+             PAGE 1: HOME PAGE
+             =================================================================== -->
+        <section id="page-home" class="page-view active">
+            <div class="hero-section">
+                <div class="hero-badge"><i class="fa-solid fa-circle-dot"></i> Cyber-Violet & Emerald Studio v2.0</div>
+                <h1 class="hero-title">The Ultimate Reference & Study Studio for Artists</h1>
+                <p class="hero-subtitle">
+                    Explore curated drawing reference photography equipped with built-in color palette extraction, value massing tools, proportion grids, and timed gesture drawing modes.
+                </p>
+
+                <!-- Hero Search -->
+                <div class="hero-search-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="homeSearchInput" placeholder="Search references...">
+                    <button id="homeSearchBtn" class="btn-primary">Search</button>
+                </div>
+
+                <!-- Quick Category Cards -->
+                <div class="quick-category-grid">
+                    <div class="cat-card nav-route" data-target="library" data-cat="anatomy">
+                        <div class="cat-icon" style="background: rgba(124, 58, 237, 0.2); color: #a855f7;"><i class="fa-solid fa-child-reaching"></i></div>
+                        <h3>Anatomy & Poses</h3>
+                        <p>Figure studies, muscle breakdown & foreshortening</p>
+                    </div>
+
+                    <div class="cat-card nav-route" data-target="library" data-cat="expressions">
+                        <div class="cat-icon" style="background: rgba(16, 185, 129, 0.2); color: #10b981;"><i class="fa-solid fa-face-smile"></i></div>
+                        <h3>Expressions</h3>
+                        <p>Facial features, eye glances & emotion studies</p>
+                    </div>
+
+                    <div class="cat-card nav-route" data-target="library" data-cat="lighting">
+                        <div class="cat-icon" style="background: rgba(6, 182, 212, 0.2); color: #06b6d4;"><i class="fa-solid fa-sun"></i></div>
+                        <h3>Dramatic Lighting</h3>
+                        <p>Chiaroscuro, rim light & cinematic shadows</p>
+                    </div>
+
+                    <div class="cat-card nav-route" data-target="library" data-cat="drapery">
+                        <div class="cat-icon" style="background: rgba(244, 63, 94, 0.2); color: #f43f5e;"><i class="fa-solid fa-shirt"></i></div>
+                        <h3>Drapery & Clothing</h3>
+                        <p>Fabric tension points, folds & hanging silk</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Master References Spotlight -->
+            <div class="featured-spotlight-section">
+                <div class="section-header">
+                    <div>
+                        <span class="sub-title">CURATED SPOTLIGHT</span>
+                        <h2>Trending References This Week</h2>
+                    </div>
+                    <button class="btn-ghost nav-route" data-target="library">View All Library <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+
+                <div class="featured-carousel-grid" id="homeFeaturedGrid">
+                    <!-- Injected by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 2: LIBRARY / GALLERY PAGE
+             =================================================================== -->
+        <section id="page-library" class="page-view">
+            <div class="page-header">
+                <span class="sub-title">FULL CATALOG</span>
+                <h2>Reference Image Library</h2>
+                <p>Filter by categories, camera angles, and subjects to find your ideal reference photo.</p>
+            </div>
+
+            <!-- Library Multi-Filter Control Bar -->
+            <div class="library-filter-wrapper">
+                <div class="filter-controls-row">
+                    <div class="search-input-group">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="libSearchInput" placeholder="Filter title, photographer...">
+                    </div>
+
+                    <div class="select-field">
+                        <label for="libCatSelect">Category:</label>
+                        <select id="libCatSelect">
+                            <option value="all">All Categories</option>
+                            <option value="anatomy">Anatomy & Poses</option>
+                            <option value="expressions">Facial Expressions</option>
+                            <option value="lighting">Dramatic Lighting</option>
+                            <option value="landscapes">Landscapes</option>
+                            <option value="hands">Hands & Feet</option>
+                            <option value="drapery">Drapery & Clothing</option>
+                        </select>
+                    </div>
+
+                    <div class="select-field">
+                        <label for="libAngleSelect">Angle / View:</label>
+                        <select id="libAngleSelect">
+                            <option value="all">All Angles</option>
+                            <option value="front">Front View</option>
+                            <option value="side">Side Profile</option>
+                            <option value="three-quarter">3/4 View</option>
+                            <option value="dynamic">Dynamic High/Low</option>
+                        </select>
+                    </div>
+
+                    <div class="select-field">
+                        <label for="libSortSelect">Sort By:</label>
+                        <select id="libSortSelect">
+                            <option value="popular">Popularity</option>
+                            <option value="latest">Latest Added</option>
+                            <option value="random">Random Shuffle</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Library Grid -->
+            <div class="masonry-container" id="libraryMasonryGrid">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 3: ARTIST WORKBENCH / STUDY STUDIO PAGE
+             =================================================================== -->
+        <section id="page-studio" class="page-view">
+            <div class="page-header">
+                <span class="sub-title">INTERACTIVE WORKBENCH</span>
+                <h2>Artist Study Studio</h2>
+                <p>Analyze values, extract color swatches, overlay proportion grids, and mirror flip references.</p>
+            </div>
+
+            <div class="studio-workspace-container">
+                <!-- Left Sidebar Controls -->
+                <div class="studio-sidebar">
+                    <h3 class="sidebar-heading"><i class="fa-solid fa-sliders"></i> Study Tools</h3>
+                    
+                    <div class="control-block">
+                        <label>Select Reference:</label>
+                        <select id="studioArtSelect" class="form-control" style="width:100%;">
+                            <!-- Populated by JS -->
+                        </select>
+                    </div>
+
+                    <!-- Grayscale Toggle -->
+                    <div class="tool-switch-row">
+                        <span><i class="fa-solid fa-circle-half-stroke"></i> Grayscale (Values):</span>
+                        <label class="switch">
+                            <input type="checkbox" id="studioGrayscaleToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                    <!-- Grid Overlay Toggle & Subdivisions -->
+                    <div class="tool-switch-row">
+                        <span><i class="fa-solid fa-border-top-left"></i> Proportion Grid:</span>
+                        <label class="switch">
+                            <input type="checkbox" id="studioGridToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="control-block" id="gridSizeBlock" style="margin-top: 0.5rem; display: none;">
+                        <label>Grid Subdivisions:</label>
+                        <select id="studioGridSize" class="form-control" style="width:100%;">
+                            <option value="3">3 x 3 Grid</option>
+                            <option value="4" selected>4 x 4 Grid</option>
+                            <option value="6">6 x 6 Grid</option>
+                            <option value="8">8 x 8 Grid</option>
+                        </select>
+                    </div>
+
+                    <!-- Flip Mirror Toggle -->
+                    <div class="tool-switch-row">
+                        <span><i class="fa-solid fa-arrows-left-right"></i> Mirror Flip:</span>
+                        <label class="switch">
+                            <input type="checkbox" id="studioFlipToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                    <!-- High Contrast Toggle -->
+                    <div class="tool-switch-row">
+                        <span><i class="fa-solid fa-circle-nodes"></i> High Contrast:</span>
+                        <label class="switch">
+                            <input type="checkbox" id="studioContrastToggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+
+                    <!-- Value Blur Range -->
+                    <div class="control-block" style="margin-top: 1rem;">
+                        <label><i class="fa-solid fa-eye-low-vision"></i> Value Mass Blur: <span id="studioBlurVal">0px</span></label>
+                        <input type="range" id="studioBlurRange" min="0" max="20" value="0" class="range-slider">
+                    </div>
+
+                    <button id="studioResetBtn" class="btn-ghost btn-block" style="margin-top: 1rem; width: 100%;">
+                        <i class="fa-solid fa-rotate-left"></i> Reset All Tools
+                    </button>
+                </div>
+
+                <!-- Main Interactive Stage -->
+                <div class="studio-main-stage">
+                    <div class="stage-frame" id="studioStageFrame">
+                        <!-- stage-inner ensures the grid fits perfectly on the reference image -->
+                        <div class="stage-inner">
+                            <img src="" id="studioImg" alt="Studio Reference Workspace">
+                            <svg class="grid-overlay-svg" id="studioGridSvg" style="display: none;"></svg>
+                        </div>
+                    </div>
+
+                    <!-- Color Palette Extractor Drawer Panel -->
+                    <div class="palette-extractor-panel">
+                        <div class="palette-header">
+                            <h4><i class="fa-solid fa-palette" style="color: var(--accent-emerald);"></i> Extracted Color Swatches</h4>
+                            <button id="extractPaletteBtn" class="btn-accent-sm"><i class="fa-solid fa-wand-magic-sparkles"></i> Re-Extract</button>
+                        </div>
+                        <div class="swatches-row" id="swatchesRow">
+                            <!-- Dynamically generated hex color pills -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 4: GESTURE SKETCH STUDIO PAGE
+             =================================================================== -->
+        <section id="page-gesture" class="page-view">
+            <div class="page-header text-center">
+                <span class="sub-heading">GESTURE PRACTICE ROOM</span>
+                <h2>Timed Gesture Sketch Studio</h2>
+                <p>Practice figure drawing speed, line of action, and anatomical proportions with auto-advancing timed slideshows.</p>
+            </div>
+
+            <div class="gesture-room-container">
+                <!-- Practice Setup Form Card -->
+                <div class="gesture-card" id="gestureSetupCard">
+                    <h3><i class="fa-solid fa-sliders"></i> Session Settings</h3>
+                    
+                    <div class="form-group" style="margin-top: 1.5rem;">
+                        <label>Interval Duration Per Reference:</label>
+                        <div class="time-pills-grid" id="gestureTimePills">
+                            <button class="time-pill" data-time="30">30s</button>
+                            <button class="time-pill active" data-time="60">1 Min</button>
+                            <button class="time-pill" data-time="120">2 Min</button>
+                            <button class="time-pill" data-time="300">5 Min</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gestureCatSelect">Reference Category:</label>
+                        <select id="gestureCatSelect" class="form-control" style="width: 100%;">
+                            <option value="all">All Categories (Random Mixture)</option>
+                            <option value="anatomy">Anatomy & Poses Only</option>
+                            <option value="expressions">Facial Expressions Only</option>
+                            <option value="lighting">Dramatic Lighting Only</option>
+                            <option value="hands">Hands & Feet Only</option>
+                        </select>
+                    </div>
+
+                    <button id="startGestureSessionBtn" class="btn-primary btn-block btn-lg" style="margin-top: 1.5rem; width: 100%; justify-content: center;">
+                        <i class="fa-solid fa-play"></i> Launch Session
+                    </button>
+                </div>
+
+                <!-- Full Active Gesture Canvas -->
+                <div class="gesture-active-stage" id="gestureActiveStage" style="display: none;">
+                    <div class="gesture-hud">
+                        <div class="hud-info">
+                            <span class="hud-tag"><i class="fa-solid fa-fire"></i> Active</span>
+                            <span id="gestureCountDisplay">Image 1 / 10</span>
+                        </div>
+
+                        <div class="hud-timer-ring">
+                            <svg class="ring-svg" viewBox="0 0 100 100">
+                                <circle class="ring-bg" cx="50" cy="50" r="44"></circle>
+                                <circle class="ring-progress" id="gestureRingProgress" cx="50" cy="50" r="44"></circle>
+                            </svg>
+                            <span class="ring-clock" id="gestureClockText">01:00</span>
+                        </div>
+
+                        <div class="hud-controls">
+                            <button class="hud-btn" id="gesturePlayPause" title="Play / Pause"><i class="fa-solid fa-pause"></i></button>
+                            <button class="hud-btn" id="gestureNext" title="Next Reference"><i class="fa-solid fa-forward-step"></i></button>
+                            <button class="hud-btn" id="gestureGrayscale" title="Toggle Grayscale"><i class="fa-solid fa-circle-half-stroke"></i></button>
+                            <button class="hud-btn" id="gestureFlip" title="Mirror Flip"><i class="fa-solid fa-arrows-left-right"></i></button>
+                            <button class="hud-btn btn-danger" id="gestureStop"><i class="fa-solid fa-power-off"></i> Exit</button>
+                        </div>
+                    </div>
+
+                    <div class="gesture-img-viewport">
+                        <img src="" id="gestureActiveImg" alt="Gesture Reference Pose">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 5: SAVED COLLECTIONS PAGE
+             =================================================================== -->
+        <section id="page-saved" class="page-view">
+            <div class="page-header">
+                <span class="sub-title">PERSONAL SHELF</span>
+                <h2>Saved Reference Collections</h2>
+                <p>Your bookmarked references stored for quick study sessions and offline gesture practice.</p>
+            </div>
+
+            <div class="saved-actions-bar">
+                <span class="saved-count-tag"><i class="fa-solid fa-bookmark"></i> Saved: <strong id="savedPageCount">0</strong></span>
+                <button id="launchSavedGestureBtn" class="btn-primary"><i class="fa-solid fa-play"></i> Practice Set</button>
+            </div>
+
+            <div class="masonry-container" id="savedMasonryGrid">
+                <!-- Populated dynamically -->
+            </div>
+        </section>
+
+
+        <!-- ===================================================================
+             PAGE 6: COLOR PALETTE & LIGHTING TOOLS PAGE
+             =================================================================== -->
+        <section id="page-tools" class="page-view">
+            <div class="page-header">
+                <span class="sub-title">ARTIST REFERENCE UTILITIES</span>
+                <h2>Color & Lighting Studio Tools</h2>
+                <p>Interactive tools for understanding light sources, shadows, color temperature, and value breakdown.</p>
+            </div>
+
+            <div class="tools-grid">
+                <!-- Tool 1: Interactive Light Source Diagram -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fa-solid fa-sun tool-icon" style="color: #f59e0b;"></i>
+                        <div>
+                            <h3>Form Shading & Light Direction Visualizer</h3>
+                            <p>Adjust light source angle to observe core shadow, terminator, reflected light, and specular highlight.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="light-stage">
+                        <div class="light-source" id="lightSourceNode"></div>
+                        <div class="sphere-3d-preview" id="shadedSphere">
+                            <div class="specular-spot"></div>
+                        </div>
+                    </div>
+
+                    <div class="tool-controls">
+                        <label>Light Angle Direction:</label>
+                        <input type="range" id="lightAngleSlider" min="0" max="360" value="45" class="range-slider">
+                    </div>
+                </div>
+
+                <!-- Tool 2: Color Temperature & Value Guide -->
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <i class="fa-solid fa-palette tool-icon" style="color: var(--accent-emerald);"></i>
+                        <div>
+                            <h3>Value & Temperature Breakdown</h3>
+                            <p>Quick reference guide for warm vs. cool light source shadow shifts.</p>
+                        </div>
+                    </div>
+
+                    <div class="temp-guide-box">
+                        <div class="temp-row">
+                            <span class="temp-badge warm">Warm Sunlight</span>
+                            <span class="arrow">➔</span>
+                            <span class="temp-badge cool">Cool Blue Shadow</span>
+                        </div>
+                        <div class="temp-row">
+                            <span class="temp-badge cool">Cool Skylight</span>
+                            <span class="arrow">➔</span>
+                            <span class="temp-badge warm">Warm Amber Shadow</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Toast Notification -->
+    <div id="toast" class="toast-notification">
+        <i class="fa-solid fa-circle-check toast-icon"></i>
+        <span id="toastText">Action complete</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                    <span class="brand-name">ArtRef<span class="brand-accent">Studio</span></span>
+                </div>
+                <p>Designed for illustrators, animators, digital painters, and concept artists seeking high-quality reference photography & study tools.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navigation Pages</h4>
+                <ul class="footer-links">
+                    <li><a href="#home" class="nav-route" data-target="home">Home Studio</a></li>
+                    <li><a href="#library" class="nav-route" data-target="library">Reference Library</a></li>
+                    <li><a href="#studio" class="nav-route" data-target="studio">Study Studio & Color Extractor</a></li>
+                    <li><a href="#gesture" class="nav-route" data-target="gesture">Gesture Sketch Room</a></li>
+                    <li><a href="#saved" class="nav-route" data-target="saved">Saved Collections</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ArtRef Studio. All Reference Images Curated via Unsplash License.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
