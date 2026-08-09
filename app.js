@@ -161,7 +161,35 @@ document.addEventListener('DOMContentLoaded', () => {
             res: "3456 x 5184 px",
             popularScore: 85,
             date: "2026-01-10"
-        }
+        },
+        {
+            id: 12,
+            title: "Japanese Sakura Cherry Blossom Study",
+            category: "landscapes",
+            categoryLabel: "Landscapes & Scenery",
+            angle: "dynamic",
+            angleLabel: "Wide / Dynamic View",
+            gender: "unspecified",
+            image: "https://i.postimg.cc/43h0Ps0q/sakura-cherryblossom-sakuraseason-japanaesthetic-zenmood-quietmoments-aestheticart-visua.jpg",
+            photographer: "User Upload",
+            res: "1080 x 1350 px",
+            popularScore: 88,
+            date: "2026-08-10"
+        },
+        {
+            id: 13,
+            title: "Reference Image Study",
+            category: "anatomy",
+            categoryLabel: "Anatomy Study",
+            angle: "side",
+            angleLabel: "Side Profile",
+            gender: "female",
+            image: "https://i.postimg.cc/htwDh4xp/download.jpg",
+            photographer: "User Upload",
+            res: "1080 x 1350 px",
+            popularScore: 85,
+            date: "2026-07-01"
+        },
     ];
 
     // Saved Favorites State
