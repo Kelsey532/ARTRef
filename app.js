@@ -147,6 +147,20 @@ document.addEventListener('DOMContentLoaded', () => {
             res: "3456 x 5184 px",
             popularScore: 85,
             date: "2026-01-10"
+        },
+        {
+            id: 11,
+            title: "Layered Heavy Coat Drapery Study",
+            category: "drapery",
+            categoryLabel: "Drapery/Clothing",
+            angle: "three-quarter",
+            angleLabel: "3/4 View",
+            gender: "male",
+            image: "https://i.postimg.cc/g2mny2BD/download-(5).jpg",
+            photographer: "Harsh Kushwaha",
+            res: "3456 x 5184 px",
+            popularScore: 85,
+            date: "2026-01-10"
         }
     ];
 
@@ -198,11 +212,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Handle hash routing
     window.addEventListener('hashchange', () => {
         const hash = window.location.hash.replace('#', '');
         if (hash) navigateToPage(hash);
     });
+
+    // Helper: Card Generator to standardise code layout
+    function createReferenceCardHTML(item) {
+        const isSaved = savedIds.includes(item.id);
+        return `
+            <div class="ref-img-wrapper">
+                <img src="${item.image}" alt="${item.title}" loading="lazy">
+                <div class="ref-badges">
+                    <span class="card-badge">${item.categoryLabel}</span>
+                    <span class="card-badge">${item.angleLabel}</span>
+                </div>
+                <div class="ref-overlay">
+                    <div class="overlay-center-actions">
+                        <button class="card-icon-btn" data-action="open-studio" data-id="${item.id}" title="Open Studio Editor">
+                            <i class="fa-solid fa-flask"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="ref-card-footer">
+                <div class="ref-card-info">
+                    <div class="card-title">${item.title}</div>
+                    <div class="card-author">Photo by ${item.photographer}</div>
+                </div>
+                <div class="ref-card-actions">
+                    <button class="card-icon-btn ${isSaved ? 'saved' : ''}" data-action="save" data-id="${item.id}" title="Save Reference">
+                        <i class="fa-${isSaved ? 'solid' : 'regular'} fa-bookmark"></i>
+                    </button>
+                    <button class="card-icon-btn" data-action="download" data-url="${item.image}" data-title="${item.title}" title="Download Image">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
 
     // ----------------------------------------------------------------------
     // 3. HOME PAGE FEATURED SPOTLIGHT
@@ -217,32 +265,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const featured = references.slice(0, 3);
 
         featured.forEach(item => {
-            const isSaved = savedIds.includes(item.id);
             const card = document.createElement('div');
             card.className = 'ref-card';
-            card.innerHTML = `
-                <div class="ref-img-wrapper">
-                    <img src="${item.image}" alt="${item.title}">
-                    <div class="ref-badges">
-                        <span class="card-badge">${item.categoryLabel}</span>
-                        <span class="card-badge">${item.angleLabel}</span>
-                    </div>
-                    <div class="ref-overlay">
-                        <div class="overlay-top-actions">
-                            <button class="card-icon-btn ${isSaved ? 'saved' : ''}" data-action="save" data-id="${item.id}">
-                                <i class="fa-${isSaved ? 'solid' : 'regular'} fa-bookmark"></i>
-                            </button>
-                            <button class="card-icon-btn" data-action="open-studio" data-id="${item.id}">
-                                <i class="fa-solid fa-flask"></i>
-                            </button>
-                        </div>
-                        <div class="overlay-bottom-info">
-                            <div class="card-title">${item.title}</div>
-                            <div class="card-author">Photo by ${item.photographer}</div>
-                        </div>
-                    </div>
-                </div>
-            `;
+            card.innerHTML = createReferenceCardHTML(item);
             homeFeaturedGrid.appendChild(card);
         });
     }
@@ -297,32 +322,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         filtered.forEach(item => {
-            const isSaved = savedIds.includes(item.id);
             const card = document.createElement('div');
             card.className = 'ref-card';
-            card.innerHTML = `
-                <div class="ref-img-wrapper">
-                    <img src="${item.image}" alt="${item.title}" loading="lazy">
-                    <div class="ref-badges">
-                        <span class="card-badge">${item.categoryLabel}</span>
-                        <span class="card-badge">${item.angleLabel}</span>
-                    </div>
-                    <div class="ref-overlay">
-                        <div class="overlay-top-actions">
-                            <button class="card-icon-btn ${isSaved ? 'saved' : ''}" data-action="save" data-id="${item.id}">
-                                <i class="fa-${isSaved ? 'solid' : 'regular'} fa-bookmark"></i>
-                            </button>
-                            <button class="card-icon-btn" data-action="open-studio" data-id="${item.id}">
-                                <i class="fa-solid fa-flask"></i>
-                            </button>
-                        </div>
-                        <div class="overlay-bottom-info">
-                            <div class="card-title">${item.title}</div>
-                            <div class="card-author">Photo by ${item.photographer}</div>
-                        </div>
-                    </div>
-                </div>
-            `;
+            card.innerHTML = createReferenceCardHTML(item);
             libraryMasonryGrid.appendChild(card);
         });
     }
@@ -344,8 +346,40 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (action === 'open-studio') {
             document.getElementById('studioArtSelect').value = id;
             navigateToPage('studio');
+        } else if (action === 'download') {
+            const url = btn.getAttribute('data-url');
+            const title = btn.getAttribute('data-title');
+            downloadImage(url, title);
         }
     });
+
+    // Image Downloader with Fallback
+    function downloadImage(url, title) {
+        const fileName = title.toLowerCase().replace(/[^a-z0-9]/g, '-') + '.jpg';
+        showToast('Downloading', 'Preparing your drawing reference...');
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) throw new Error();
+                return response.blob();
+            })
+            .then(blob => {
+                const blobUrl = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(blobUrl);
+                showToast('Download Complete', 'Image successfully saved to device.');
+            })
+            .catch(() => {
+                // If CORS blocks fetch, open image directly in new tab for standard saving
+                window.open(url, '_blank');
+                showToast('Opened Reference Source', 'Use long-press or right-click to save.');
+            });
+    }
 
     // ----------------------------------------------------------------------
     // 5. STUDIO WORKBENCH & COLOR PALETTE EXTRACTOR
@@ -702,28 +736,7 @@ document.addEventListener('DOMContentLoaded', () => {
         savedItems.forEach(item => {
             const card = document.createElement('div');
             card.className = 'ref-card';
-            card.innerHTML = `
-                <div class="ref-img-wrapper">
-                    <img src="${item.image}" alt="${item.title}">
-                    <div class="ref-badges">
-                        <span class="card-badge">${item.categoryLabel}</span>
-                    </div>
-                    <div class="ref-overlay">
-                        <div class="overlay-top-actions">
-                            <button class="card-icon-btn saved" data-action="save" data-id="${item.id}">
-                                <i class="fa-solid fa-bookmark"></i>
-                            </button>
-                            <button class="card-icon-btn" data-action="open-studio" data-id="${item.id}">
-                                <i class="fa-solid fa-flask"></i>
-                            </button>
-                        </div>
-                        <div class="overlay-bottom-info">
-                            <div class="card-title">${item.title}</div>
-                            <div class="card-author">Photo by ${item.photographer}</div>
-                        </div>
-                    </div>
-                </div>
-            `;
+            card.innerHTML = createReferenceCardHTML(item);
             savedMasonryGrid.appendChild(card);
         });
     }
